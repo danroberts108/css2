@@ -1,0 +1,74 @@
+<?php require('template/header.phtml') ?>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Users</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+                    <thead>
+                    <tr>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Image</th>
+                        <!--Displays further user information if a user is plugged in-->
+                        <?php
+                        if (isset($_SESSION['login'])) {
+                            echo
+                            '
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                            ';
+                        }
+                        ?>
+                        <th scope="col">Username</th>
+                        <?php
+                        if (isset($_SESSION['login'])) {
+                            echo
+                                '<th scope="col">Actions</th>';
+                        }
+                        ?>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--Creates a new row for each user returned-->
+                    <?php foreach ($view->dataset as $dataset) {
+                        echo '<tr>' .
+                            '<th scope="row">' . $dataset->getUserid() . '</th>' .
+                            '<td><img width="80px" src="images/' . $dataset->getPhoto() . '" alt="' . $dataset->getUsername() . '"' . '></td>';
+                        if (isset($_SESSION['login'])) {
+                            echo
+
+                                '<td>' . $dataset->getFname() . '</td>' .
+                                '<td>' . $dataset->getLname() . '</td>';
+                        }
+                        echo '<td>' . $dataset->getUsername() . '</td>';
+                        if (isset($_SESSION['login'])) {
+                            echo
+                                '<td>
+                                    <form method="post" action="" class="btn-pad" text-primary>
+                                        <input type="hidden" value="' . $dataset->getUserid() . '" name="friendID">
+                                        <div class="row">
+                                            <input type="submit" name="requestFriend" value="Request" class="btn btn-primary btn-block">
+                                        </div>
+                                        <div class="row">
+                                            <input type="submit" name="blockUser" value="Block" class="btn btn-danger btn-block">
+                                        </div>
+                                    </form>
+                                </td>' .
+                                '</tr>';
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<?php require('template/footer.phtml') ?>

@@ -1,0 +1,89 @@
+<?php require('template/header.phtml') ?>
+    <div class="container">
+        <div class="col">
+            <!--Displays error message if one is sent with the session-->
+            <?php
+            if (isset($_SESSION['message'])) {
+                echo '
+                <div class="row">
+                    <div class="alert alert-danger alert-dismissible container-fluid">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        ' . $_SESSION['message'] . '
+                    </div>
+                </div>
+                ';
+            }
+            ?>
+            <div class="row">
+                <h1>Welcome</h1>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="card index-card">
+                        <h3 class="card-header">Users</h3>
+                        <div class="card-body">
+                            <!-- displays different text depending on if the user is logged in or not-->
+                            <?php
+                            if (isset($_SESSION['login'])) {
+                                echo '
+                                <p>View users that aren\'t your friend yet.</p>
+                                ';
+                            } else {
+                                echo '
+                                <p>View all users.</p>
+                                ';
+                            }
+                            ?>
+                            <a class="btn btn-outline-primary btn-block" href="./users.php">Go</a>
+                        </div>
+                    </div>
+                </div>
+                <!--Displays the other front page cards if the user is logged in-->
+                <?php
+                if (isset($_SESSION['login'])) {
+                    echo '
+                    <div class="col-4">
+                    <div class="card index-card">
+                        <h3 class="card-header">My Friends</h3>
+                        <div class="card-body">
+                            <p>View your friends.</p>
+                            <a class="btn btn-outline-primary btn-block" href="./myfriends.php">Go</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card index-card">
+                        <h3 class="card-header">My Requests</h3>
+                        <div class="card-body">
+                            <p>View your requests.</p>
+                            <a class="btn btn-outline-primary btn-block" href="./myrequests.php">Go</a>
+                        </div>
+                    </div>
+                </div>
+                    ';
+                }
+                ?>
+            </div>
+            <?php
+            if (isset($_SESSION['login'])) {
+                echo '
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <div class="card index-card">
+                            <h3 class="card-header">My Profile</h3>
+                            <div class="card-body">
+                                <p>View your profile.</p>
+                                <a class="btn btn-outline-primary btn-block" href="./profile.php">Go</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+            }
+            ?>
+
+        </div>
+    </div>
+
+<?php require('template/footer.phtml') ?>

@@ -1,0 +1,86 @@
+<?php
+
+require_once("template/header.phtml");
+
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h1>Register</h1>
+                    </div>
+                    <div class="row">
+                        <p>(*) Required</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--Form to capture new users details-->
+                <form action="register.php" method="POST">
+                    <div class="row">
+                        <div class="col">
+                            <label for="username"><b>Username*</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" placeholder="Username" name="username" class="registerinput" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="fname"><b>First name*</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" placeholder="First name" name="fname" class="registerinput" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="lname"><b>Last name*</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" placeholder="Last name" name="lname" class="registerinput" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="email"><b>Email*</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" placeholder="Email" name="email" class="registerinput" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="password"><b>Password*</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="password" placeholder="New Password" name="password" class="registerinput"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row form-padding">
+                        <button type="submit" name="registerButton" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class=" p-5 mb-4 bg-light rounded-3">
+                    <div class="container-fluid py-5">
+                        <h1 class="display-5 fw-bold">Create User Account</h1>
+                        <p class="col-md-8 fs-4">
+                            Please enter your details here to register.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<?php require('template/header.phtml') ?>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>My Friends</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!--Table to show the users friends-->
+                <table class="table table-striped" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+                    <!--Table header with the column names in-->
+                    <thead>
+                    <tr>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--Creates a new table row for every record returned-->
+                    <?php foreach ($view->dataset as $dataset) {
+                        echo '<tr>' .
+                            '<th scope="row">' . $dataset->getUserid() . '</th>' .
+                            '<td><img width="80px" src="images/' . $dataset->getPhoto() . '" alt="' . $dataset->getUsername() . '"' . '></td>' .
+                            '<td>' . $dataset->getFname() . '</td>' .
+                            '<td>' . $dataset->getLname() . '</td>' .
+                            '<td>' . $dataset->getUsername() . '</td>' .
+                            '<td>' . $dataset->getLat() . ', ' . $dataset->getLon() . '</td>' .
+                            '<td>
+                            <form method="post" action="" text-primary>
+                                <input type="hidden" value="' . $dataset->getFriendshipid() . '" name="friendshipid">
+                                <input type="submit" name="removeFriend" value="Remove" class="btn btn-danger btn-block">
+                            </form>
+                        </td>' .
+                            '</tr>';
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--Displays if the user has no current friends-->
+        <?php
+        if (count($view->dataset) == 0) {
+            echo '
+                <div class="row justify-content-center">
+                    <div class="alert alert-secondary" role="alert">
+                        You have no added friends - go to the users page to request some!
+                    </div>
+                </div>
+                ';
+        }
+        ?>
+    </div>
+
+<?php require('template/footer.phtml') ?>

@@ -1,0 +1,145 @@
+<?php require_once('template/header.phtml') ?>
+
+    <div class="container">
+        <div class="col">
+            <!--Displays returned error if there is one on the session-->
+            <?php
+            if (isset($_SESSION['message'])) {
+                echo '
+        <div class="row">
+            <div class="alert alert-' . $_SESSION['messageType'] . '" type="alert">
+                ' . $_SESSION['message'] . '
+            </div>
+        </div>
+        ';
+            }
+            ?>
+            <!--Section headers-->
+            <div class="row">
+                <h1>My Profile</h1>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <h3>Current Profile Picture</h3>
+                </div>
+                <div class="col-6">
+                    <h3>Edit Details</h3>
+                </div>
+                <div class="col-3">
+                    <h3>New Profile Picture</h3>
+                </div>
+            </div>
+            <!--Profile photo card-->
+            <div class="row">
+                <div class="col-3">
+                    <div class="card">
+                        <img width="80px" src="images/<?php echo $view->user[0]->getPhoto() ?>" class="card-img-top" alt="<?php echo $view->user[0]->getUsername() ?>">
+                        <div class="card-body">
+                            <h5 class="card-title">Your Profile Picture</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!--User details form-->
+                            <form method="post" action="" text-primary class="input-pad">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="userid"><b>User ID</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="userid"
+                                               value="<?php echo $view->user[0]->getUserid() ?>" class="registerinput"
+                                               readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="username"><b>Username</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="username"
+                                               value="<?php echo $view->user[0]->getUsername() ?>" class="registerinput"
+                                               readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="email"><b>Email</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="email" value="<?php echo $view->user[0]->getEmail() ?>"
+                                               class="registerinput" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="fname"><b>First name</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="fname" value="<?php echo $view->user[0]->getFname() ?>"
+                                               class="registerinput">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="lname"><b>Last name</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="lname" value="<?php echo $view->user[0]->getLname() ?>"
+                                               class="registerinput">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="lat"><b>Latitude</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="lat" value="<?php echo $view->user[0]->getLat(); ?>"
+                                               class="registerinput" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="lon"><b>Longitude</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="lon" value="<?php echo $view->user[0]->getLon() ?>"
+                                               class="registerinput" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <input type="submit" name="save" value="Save" class="btn btn-primary btn-block">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <!--Upload new profile photo section-->
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="post" action="" class="input-pad" enctype="multipart/form-data">
+                                <span>Image should be 80x80px.</span>
+                                <input type="hidden" value="<?php echo $view->user[0]->getUserid() ?>" name="userid">
+                                <div class="row">
+                                    <input type="file" name="picture">
+                                </div>
+                                <div class="row">
+                                    <input type="submit" name="photo" value="Save" class="btn btn-primary btn-block">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<!--Unsets the error message after it has been displayed so it does not persist over the session-->
+<?php unset($_SESSION['message']);
+unset($_SESSION['messageType']) ?>
+
+<?php require_once('template/footer.phtml') ?>

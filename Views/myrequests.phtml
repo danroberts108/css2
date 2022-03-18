@@ -1,0 +1,129 @@
+<?php require('template/header.phtml') ?>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>My Requests</h1>
+        </div>
+    </div>
+</div>
+
+        <?php if (count($view->dataset) != 0) {
+            //<!--Table for requests-->
+            echo '
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+                <!--Table headers-->
+                <thead>
+                    <tr>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>';
+            //<!--Displays every request record returned-->
+            foreach ($view->dataset as $dataset) {
+            echo '
+                    <tr>' .
+                        '<th scope="row">' . $dataset->getUserid() . '</th>' .
+                        '<td><img width="80px" src="images/' . $dataset->getPhoto() . '" alt="' . $dataset->getUsername() . '"' . '></td>' .
+                        '<td>' . $dataset->getFname() . '</td>' .
+                        '<td>' . $dataset->getLname() . '</td>' .
+                        '<td>' . $dataset->getUsername() . '</td>' .
+                        '<td>' . $dataset->getLat() . ', ' . $dataset->getLon() . '</td>' .
+                        '<td>' .
+                            '<form method="post" action="" class="btn-pad" text-primary>
+                                <input type="hidden" value="' . $dataset->getFriendshipid() . '" name="friendshipid">
+                                <div class="row">
+                                    <input type="submit" name="acceptRequest" value="Accept" class="btn btn-primary btn-block">
+                                </div>
+                                <div class="row">
+                                    <input type="submit" name="declineRequest" value="Delete" class="btn btn-danger btn-block">
+                                </div>
+                                <div class="row">
+                                    <input type="submit" name="blockRequest" value="Block" class="btn btn-danger btn-block">
+                                </div>
+                            </form>
+                        </td>' .
+                    '</tr>';
+            }
+            echo '
+                </tbody>
+            </table>
+        </div>
+    </div>';
+        } else {
+            //<!--Displays if no requests are returned-->
+            echo '
+                <div class="row justify-content-center">
+                    <div class="alert alert-secondary" role="alert">
+                        You have no requests!
+                    </div>
+                </div>
+                ';
+        }
+        ?>
+    </div>
+    <div class="container">
+        <div class="col">
+            <div class="row">
+                <h1>Sent Requests</h1>
+            </div>
+        </div>
+    </div>
+
+<?php if (count($view->datasetReq) != 0) {
+    echo '
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!--Table for requests-->
+            <table class="table table-striped" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+                <!--Table headers-->
+                <thead>
+                <tr>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>';
+    foreach ($view->datasetReq as $dataset) {
+        echo '<tr>' .
+            '<th scope="row">' . $dataset->getUserid() . '</th>' .
+            '<td><img width="80px" src="images/' . $dataset->getPhoto() . '" alt="' . $dataset->getUsername() . '"' . '></td>' .
+            '<td>' . $dataset->getFname() . '</td>' .
+            '<td>' . $dataset->getLname() . '</td>' .
+            '<td>' . $dataset->getUsername() . '</td>' .
+            '<td><form method="post" action="" class="btn-pad" text-primary>
+                                <input type="hidden" value="' . $dataset->getFriendshipid() . '" name="friendshipid">
+                                <div class="row">
+                                    <input type="submit" name="deleteRequest" value="Delete" class="btn btn-danger btn-block">
+                                </div>
+                            </form></td>' .
+            '</tr>';
+    }
+    echo '</tbody>
+            </table>
+        </div>
+    </div>';
+} else {
+    echo '
+    <div class="row justify-content-center">
+        <div class="alert alert-secondary" role="alert">
+            You have sent no requests!
+        </div>
+    </div>';
+} ?>
+
+
+<?php require('template/footer.phtml') ?>
