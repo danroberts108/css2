@@ -7,14 +7,10 @@ if ($view->duplicate) {
     <div class="container" id="duplicateAlert">
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>This username is already taken.</strong> Please choose another one.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" tabindex="-1"></button>
         </div>
     </div>
     ';
-}
-
-
-?>
+} ?>
 
 <div class="container">
     <div class="row">
@@ -97,4 +93,4 @@ if ($view->duplicate) {
     </div>
 </div>
 
-<script src="js/close-listener.js"></script>
+<script src="js/dupUserAlert.js"></script>
