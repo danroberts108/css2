@@ -240,6 +240,21 @@ class UserDataSet {
         $statement->execute();
     }
 
+    public function searchUser($term) {
+        $query = "SELECT * FROM users WHERE (fname LIKE ? OR lname LIKE ? OR username LIKE ? OR userid = ?)";
+        $statement = $this->_dbHandle->prepare($query);
+        $statement->bindParam(1, $term);
+        $statement->bindParam(2, $term);
+        $statement->bindParam(3, $term);
+        $statement->bindParam(4, $term);
+        $statement->execute();
+        $dataset = [];
+        while ($row = $statement->fetch()) {
+            $dataset[] = new UserData($row);
+        }
+        return $dataset;
+    }
+
 }
 
 

@@ -1,5 +1,3 @@
-
-
 let usernameInput = document.getElementById('usernameInput');
 let regButton = document.getElementById('regButton');
 

@@ -10,7 +10,17 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <table class="table table-striped" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+                <form>
+                    <input type="text" placeholder="Search..." class="form-control" id="searchbox">
+                </form>
+                <div id="liveSearch"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped" data-toggle="table" data-search="false" data-show-columns="true" data-pagination="true">
                     <thead>
                     <tr>
                         <th scope="col">User ID</th>
@@ -70,5 +80,6 @@
         </div>
     </div>
 
+<script src="js/searchUser.js"></script>
 
 <?php require('template/footer.phtml') ?>
