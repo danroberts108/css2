@@ -1,0 +1,66 @@
+<?php require_once('template/header.phtml') ?>
+
+<div class="container">
+    <div class="row">
+        <h1><?php echo $view->user->getUsername() ?></h1>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $view->user->getUsername() ?>'s Profile Picture</h5>
+                </div>
+                <img src="images/<?php echo $view->user->getPhoto() ?>" alt="">
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 40rem;">
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <label for="userid"><b>User ID</b></label>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="userid"
+                                       value="<?php echo $view->user->getUserid() ?>" class="registerinput"
+                                       disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="username"><b>Username</b></label>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="username"
+                                       value="<?php echo $view->user->getUsername() ?>" class="registerinput"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="fname"><b>First name</b></label>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="fname" value="<?php echo $view->user->getFname() ?>"
+                                       class="registerinput" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="lname"><b>Last name</b></label>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="lname" value="<?php echo $view->user->getLname() ?>"
+                                       class="registerinput" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php require_once('template/footer.phtml') ?>

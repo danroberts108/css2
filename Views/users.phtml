@@ -66,7 +66,7 @@
                         echo '<td>' . $dataset->getUsername() . '</td>';
                         if (isset($_SESSION['login'])) {
                             echo
-                                '<td>
+                                '<td><div class="container">
                                     <form method="post" action="" class="btn-pad" text-primary>
                                         <input type="hidden" value="' . $dataset->getUserid() . '" name="friendID">
                                         <div class="row">
@@ -75,8 +75,11 @@
                                         <div class="row">
                                             <input type="submit" name="blockUser" value="Block" class="btn btn-danger btn-block">
                                         </div>
+                                        <div class="row">
+                                            <a class="btn btn-secondary btn-block" href="user.php?userid=' . $dataset->getUserid() . '">View Profile</a>
+                                        </div>
                                     </form>
-                                </td>' .
+                                </td></div>' .
                                 '</tr>';
                         }
                     }

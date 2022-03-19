@@ -27,11 +27,11 @@ function search() {
                 list.classList.add('list-group');
                 for (let i = 0; i < resultArray.length; i++) {
                     let result = document.createElement('a');
+                    let item = JSON.parse(resultArray[i]);
                     result.classList.add('list-group-item');
                     result.classList.add('list-group-item-action')
                     result.classList.add('search-infront');
-                    result.setAttribute('href', '#');
-                    let item = JSON.parse(resultArray[i]);
+                    result.setAttribute('href', 'user.php?userid=' + item.userid);
                     result.innerHTML = '<div class="container">' +
                         '   <div class="row">' +
                         '    <div class="col col-md-auto">' +
@@ -69,4 +69,4 @@ function onUnfocus() {
 
 searchbox.addEventListener('keyup', search, false);
 searchbox.addEventListener('focusin', search, false);
-searchbox.addEventListener('focusout', onUnfocus, false);
+//searchbox.addEventListener('focusout', onUnfocus, false);
