@@ -141,6 +141,12 @@ body {
     padding-bottom: 0.5rem;
 }
 
-.duplicate-username {
-
+div.search-infront {
+    position: absolute;
+}
+a.search-infront {
+    background-color: white;
+    opacity: 1;
+    z-index: 1;
+    min-width: 30rem;
 }

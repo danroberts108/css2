@@ -241,12 +241,10 @@ class UserDataSet {
     }
 
     public function searchUser($term) {
-        $query = "SELECT * FROM users WHERE (fname LIKE ? OR lname LIKE ? OR username LIKE ? OR userid = ?)";
+        $searchTerm = '%' . $term . '%';
+        $query = "SELECT * FROM users WHERE username LIKE ? LIMIT 10";
         $statement = $this->_dbHandle->prepare($query);
-        $statement->bindParam(1, $term);
-        $statement->bindParam(2, $term);
-        $statement->bindParam(3, $term);
-        $statement->bindParam(4, $term);
+        $statement->bindParam(1, $searchTerm);
         $statement->execute();
         $dataset = [];
         while ($row = $statement->fetch()) {
