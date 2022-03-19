@@ -128,3 +128,19 @@ body {
 .index-card {
     width: 18rem;
 }
+
+.container-border {
+    outline: lightgrey;
+    outline-style: solid;
+    outline-width: thin;
+    border-radius: 10px;
+}
+
+.register-form > div {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.duplicate-username {
+
+}

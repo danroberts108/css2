@@ -2,6 +2,18 @@
 
 require_once("template/header.phtml");
 
+if ($view->duplicate) {
+    echo '
+    <div class="container" id="duplicateAlert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>This username is already taken.</strong> Please choose another one.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" tabindex="-1"></button>
+        </div>
+    </div>
+    ';
+}
+
+
 ?>
 
 <div class="container">
@@ -19,13 +31,13 @@ require_once("template/header.phtml");
             </div>
             <div class="row">
                 <!--Form to capture new users details-->
-                <form action="register.php" method="POST">
+                <form action="register.php" method="POST" class="register-form">
                     <div class="row">
                         <div class="col">
                             <label for="username"><b>Username*</b></label>
                         </div>
                         <div class="col">
-                            <input type="text" placeholder="Username" name="username" class="registerinput" required>
+                            <input id="usernameInput" type="text" placeholder="Username" name="username" class="registerinput <?php if($view->duplicate) { echo 'border-danger'; }; ?>" required <?php if ($view->duplicate) { echo 'value="' . $view->username . '"'; } ?>>
                         </div>
                     </div>
                     <div class="row">
@@ -33,7 +45,7 @@ require_once("template/header.phtml");
                             <label for="fname"><b>First name*</b></label>
                         </div>
                         <div class="col">
-                            <input type="text" placeholder="First name" name="fname" class="registerinput" required>
+                            <input type="text" placeholder="First name" name="fname" class="registerinput" required <?php if ($view->duplicate) { echo 'value="' . $view->fname . '"'; } ?>>
                         </div>
                     </div>
                     <div class="row">
@@ -41,7 +53,7 @@ require_once("template/header.phtml");
                             <label for="lname"><b>Last name*</b></label>
                         </div>
                         <div class="col">
-                            <input type="text" placeholder="Last name" name="lname" class="registerinput" required>
+                            <input type="text" placeholder="Last name" name="lname" class="registerinput" required <?php if ($view->duplicate) { echo 'value="' . $view->lname . '"'; } ?>>
                         </div>
                     </div>
                     <div class="row">
@@ -49,7 +61,7 @@ require_once("template/header.phtml");
                             <label for="email"><b>Email*</b></label>
                         </div>
                         <div class="col">
-                            <input type="text" placeholder="Email" name="email" class="registerinput" required>
+                            <input type="text" placeholder="Email" name="email" class="registerinput" required <?php if ($view->duplicate) { echo 'value="' . $view->email . '"'; } ?>>
                         </div>
                     </div>
                     <div class="row">
@@ -84,3 +96,5 @@ require_once("template/header.phtml");
         </div>
     </div>
 </div>
+
+<script src="js/close-listener.js"></script>

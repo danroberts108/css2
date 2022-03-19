@@ -50,6 +50,12 @@ class UserOps {
 
     //Registers a user in the database
     public function registerUser($username, $email, $photo, $password, $lat, $lon, $fname, $lname) {
+
+        $duplicate = $this->checkDuplicate($username);
+        if ($duplicate) {
+            return false;
+        }
+
         $query = "INSERT INTO users (username, email, photo, lat, lon, fname, lname) VALUES (?,?,?,?,?,?,?)";
         $statement = $this->_dbHandle->prepare($query);
 
