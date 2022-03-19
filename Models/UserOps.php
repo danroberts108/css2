@@ -94,6 +94,8 @@ class UserOps {
         $_SESSION['fname'] = $fname;
 
         header('Location: index.php');
+
+        return true;
     }
 
     //Checks if a username has two entries
@@ -101,6 +103,11 @@ class UserOps {
         $query = "SELECT * FROM users WHERE username = ?";
         $statement = $this->_dbHandle->prepare($query);
         $statement->bindParam(1, $username);
-        return $statement->execute();
+        $statement->execute();
+        $return = $statement->fetch();
+        if ($return !== false) {
+            $return = true;
+        }
+        return $return;
     }
 }
