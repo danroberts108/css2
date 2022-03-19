@@ -61,4 +61,12 @@ function search() {
     xhr.send(null);
 }
 
+function onUnfocus() {
+    if (hint.hasChildNodes()) {
+        hint.firstChild.remove();
+    }
+}
+
 searchbox.addEventListener('keyup', search, false);
+searchbox.addEventListener('focusin', search, false);
+searchbox.addEventListener('focusout', onUnfocus, false);

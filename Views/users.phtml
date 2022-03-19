@@ -7,16 +7,23 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <?php if (isset($_SESSION['login'])) {
+        echo '<div class="container">
         <div class="row">
             <div class="col">
-                <form>
-                    <input type="text" placeholder="Search..." class="form-control" id="searchbox">
+                <form type="submit" action="" method="POST">
+                    <div class="input-group mb-3">
+                        <input type="text" placeholder="Search..." class="form-control" id="searchbox" name="searchTerm"';
+        if (isset($_POST['search'])) { echo 'value=' . $_POST['searchTerm']; }
+        echo '>
+                        <button class="btn btn-outline-secondary" type="submit" id="searchButton" name="search">Search</button>
+                    </div>
                 </form>
                 <div id="liveSearch" class="search-infront"></div>
             </div>
-        </div>
-    </div>
+        </div>';
+    } ?>
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -84,21 +91,3 @@
 
 <?php require('template/footer.phtml') ?>
 
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="row">
-                <img src="" alt="">
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <h5><strong>uname</strong> (uid)</h5>
-            </div>
-            <div class="row">
-                <p>fname lname</p>
-            </div>
-        </div>
-    </div>
-</div>
