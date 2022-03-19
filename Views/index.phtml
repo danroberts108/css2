@@ -18,8 +18,8 @@
                 <h1>Welcome</h1>
             </div>
             <div class="row">
-                <div class="col-4">
-                    <div class="card index-card">
+                <div class="col-4 index-card-div">
+                    <div class="card index-card" style="height: 13rem;">
                         <h3 class="card-header">Users</h3>
                         <div class="card-body">
                             <!-- displays different text depending on if the user is logged in or not-->
@@ -43,7 +43,7 @@
                 if (isset($_SESSION['login'])) {
                     echo '
                     <div class="col-4">
-                    <div class="card index-card">
+                    <div class="card index-card index-card-div" style="height: 13rem;">
                         <h3 class="card-header">My Friends</h3>
                         <div class="card-body">
                             <p>View your friends.</p>
@@ -51,8 +51,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="card index-card">
+                <div class="col-4 index-card-div">
+                    <div class="card index-card" style="height: 13rem;">
                         <h3 class="card-header">My Requests</h3>
                         <div class="card-body">
                             <p>View your requests.</p>
@@ -69,8 +69,8 @@
                 echo '
                 <div class="row">
                     <div class="col-4"></div>
-                    <div class="col-4">
-                        <div class="card index-card">
+                    <div class="col-4 index-card-div">
+                        <div class="card index-card" style="height: 13rem;">
                             <h3 class="card-header">My Profile</h3>
                             <div class="card-body">
                                 <p>View your profile.</p>
