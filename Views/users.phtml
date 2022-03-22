@@ -32,7 +32,6 @@
                     <tr>
                         <th scope="col">User ID</th>
                         <th scope="col">Image</th>
-                        <!--Displays further user information if a user is plugged in-->
                         <?php
                         if (isset($_SESSION['login'])) {
                             echo
@@ -46,13 +45,12 @@
                         <?php
                         if (isset($_SESSION['login'])) {
                             echo
-                                '<th scope="col">Actions</th>';
+                            '<th scope="col">Actions</th>';
                         }
                         ?>
                     </tr>
                     </thead>
                     <tbody>
-                    <!--Creates a new row for each user returned-->
                     <?php foreach ($view->dataset as $dataset) {
                         echo '<tr>' .
                             '<th scope="row">' . $dataset->getUserid() . '</th>' .
@@ -88,6 +86,7 @@
                 </table>
             </div>
         </div>
+
     </div>
 
 <script src="js/searchUser.js"></script>

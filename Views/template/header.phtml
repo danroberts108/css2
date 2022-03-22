@@ -1,4 +1,4 @@
-<?php if(!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on")
+<?php if((!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") && (php_sapi_name() != 'cli-server'))
 {
     //Tell the browser to redirect to the HTTPS URL.
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], true, 301);
