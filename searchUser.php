@@ -5,7 +5,21 @@ require_once("Models/UserData.php");
 
 header('Content-Type: text/plain');
 
+session_start();
 $term = $_REQUEST['term'];
+$requestToken = $_REQUEST['ajaxToken'];
+$sessionToken = $_SESSION['ajaxToken'];
+
+
+if(isset($_SESSION['ajaxToken'])) {
+    if ($requestToken !== $sessionToken) {
+        echo 'false';
+        exit;
+    }
+} else {
+    echo 'false';
+    exit;
+}
 
 $UserDataSet = new UserDataSet();
 
@@ -24,5 +38,3 @@ for ($i = 0; $i < count($UserArray); $i++) {
 }
 
 echo json_encode($jsonArray);
-
-?>

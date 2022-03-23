@@ -2,10 +2,13 @@
 {
     //Tell the browser to redirect to the HTTPS URL.
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], true, 301);
-    //TODO Implement token
     //Prevent the rest of the script from executing.
     exit;
-} ?>
+}
+
+$token = substr(str_shuffle(MD5(microtime())), 0, 20);
+$_SESSION['ajaxToken'] = $token;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +32,6 @@
 </head>
 
 <body role="document">
-
 <!-- nav bar-->
 <div class="container-fluid px-0">
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-white rounded">

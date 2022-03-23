@@ -12,13 +12,18 @@ function search() {
     }
 
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'searchUser.php?term=' + term);
+    xhr.open('GET', 'searchUser.php?term=' + term + '&ajaxToken=' + token);
 
     xhr.onreadystatechange = function () {
         let DONE = 4;
         let OK = 200;
         if (xhr.readyState === DONE && xhr.status === OK) {
-            let resultArray = JSON.parse(xhr.responseText);
+            let response = xhr.responseText;
+            if (response === "false") {
+                console.log('returned false');
+                return;
+            }
+            let resultArray = JSON.parse(response);
             if (hint.hasChildNodes()) {
                 hint.firstChild.remove();
             }
@@ -51,6 +56,7 @@ function search() {
                         '</div>';
                     list.appendChild(result);
                 }
+                hint.appendChild(list);
             }
         }
     };
