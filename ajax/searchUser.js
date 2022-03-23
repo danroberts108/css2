@@ -28,9 +28,7 @@ function search() {
                 for (let i = 0; i < resultArray.length; i++) {
                     let result = document.createElement('a');
                     let item = JSON.parse(resultArray[i]);
-                    result.classList.add('list-group-item');
-                    result.classList.add('list-group-item-action')
-                    result.classList.add('search-infront');
+                    result.classList.add('list-group-item', 'list-group-item-action', 'search-infront');
                     result.setAttribute('href', 'user.php?userid=' + item.userid);
                     result.innerHTML = '<div class="container">' +
                         '   <div class="row">' +
@@ -53,7 +51,6 @@ function search() {
                         '</div>';
                     list.appendChild(result);
                 }
-                hint.appendChild(list);
             }
         }
     };
