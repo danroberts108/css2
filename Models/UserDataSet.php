@@ -240,10 +240,17 @@ class UserDataSet {
         $statement->execute();
     }
 
+
+    /** Searches the user database for users that match the search term
+     * @param $term string The term to be searched for
+     * @param $limit int The limit of results to be returned
+     * @return array
+     */
     public function searchUser($term, $limit) {
         $searchTerm = '%' . $term . '%';
         $limitInt = intval(trim($limit));
         $query = "SELECT * FROM users WHERE (username LIKE ? OR fname LIKE ? OR lname LIKE ?)";
+        //Adds the limit part of the statement if one has been selected
         if ($limitInt != 0) {
             $query = $query . " LIMIT ?";
         }
@@ -251,6 +258,7 @@ class UserDataSet {
         $statement->bindParam(1, $searchTerm);
         $statement->bindParam(2, $searchTerm);
         $statement->bindParam(3, $searchTerm);
+        //Binds the limit argument if one has been selected
         if ($limitInt != 0) {
             $statement->bindValue(4, $limitInt, PDO::PARAM_INT);
         }

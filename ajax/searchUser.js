@@ -5,6 +5,7 @@ function search() {
     let term = searchbox.value;
     let limit = 5;
 
+    //Checks if a search term has been entered
     if (term === "" || term == null) {
         if (hint.hasChildNodes()) {
             hint.firstChild.remove();
@@ -12,10 +13,10 @@ function search() {
         return;
     }
 
-    let viewHeight = document.getElementById('page').clientHeight;
-    let viewHeightRem = viewHeight / 16;
+    /*let viewHeight = document.getElementById('page').clientHeight;
+    let viewHeightRem = viewHeight / 16;*/
 
-
+    //Opens the ajax connection
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'searchUser.php?term=' + term + '&ajaxToken=' + token + '&limit=' + limit);
 
@@ -24,17 +25,24 @@ function search() {
         let OK = 200;
         if (xhr.readyState === DONE && xhr.status === OK) {
             let response = xhr.responseText;
+            //Checks if the response has returned false by to failing any validations
             if (response === "false") {
                 console.log('returned false');
                 return;
             }
+            //Creates an array with the json parsed results
             let resultArray = JSON.parse(response);
+            //Removes previous search results from the popup search window
             if (hint.hasChildNodes()) {
                 hint.firstChild.remove();
             }
+            //Checks if the search returned no results
             if (resultArray != null) {
+                //Creates the list div in the document
                 let list = document.createElement("div");
+                //Adds the class 'list-group' for css formatting
                 list.classList.add('list-group');
+                //Creates a result item for each returned result and then appends it inside the list div
                 for (let i = 0; i < resultArray.length; i++) {
                     let result = document.createElement('a');
                     let item = JSON.parse(resultArray[i]);
@@ -61,20 +69,25 @@ function search() {
                         '</div>';
                     list.appendChild(result);
                 }
+                //Appends the full results list to the hint div that is in the DOM
                 hint.appendChild(list);
             }
         }
     };
-
+    //Sends the request to the specified script
     xhr.send(null);
 }
 
+//Function to remove the live search list
 function onUnfocus() {
     if (hint.hasChildNodes()) {
-        hint.firstChild.remove();
+        //setTimeout used to stop the element being removed before the user can click one of the results and go to the user page
+        //TODO find better way to handle this
+        setTimeout(() => {hint.firstChild.remove();}, 40);
     }
 }
 
+//Adds the event listeners to the search box element
 searchbox.addEventListener('keyup', search, false);
 searchbox.addEventListener('focusin', search, false);
-//searchbox.addEventListener('focusout', onUnfocus, false);
+searchbox.addEventListener('focusout', onUnfocus, false);
