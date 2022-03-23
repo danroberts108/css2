@@ -3,6 +3,7 @@ let hint = document.getElementById('liveSearch');
 
 function search() {
     let term = searchbox.value;
+    let limit = 5;
 
     if (term === "" || term == null) {
         if (hint.hasChildNodes()) {
@@ -11,8 +12,12 @@ function search() {
         return;
     }
 
+    let viewHeight = document.getElementById('page').clientHeight;
+    let viewHeightRem = viewHeight / 16;
+
+
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'searchUser.php?term=' + term + '&ajaxToken=' + token);
+    xhr.open('GET', 'searchUser.php?term=' + term + '&ajaxToken=' + token + '&limit=' + limit);
 
     xhr.onreadystatechange = function () {
         let DONE = 4;

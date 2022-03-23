@@ -240,13 +240,21 @@ class UserDataSet {
         $statement->execute();
     }
 
-    public function searchUser($term) {
+    public function searchUser($term, $limit) {
         $searchTerm = '%' . $term . '%';
-        $query = "SELECT * FROM users WHERE (username LIKE ? OR fname LIKE ? OR lname LIKE ?) LIMIT 5";
+        $limitInt = intval(trim($limit));
+        $query = "SELECT * FROM users WHERE (username LIKE ? OR fname LIKE ? OR lname LIKE ?)";
+        if ($limitInt != 0) {
+            $query = $query . " LIMIT ?";
+        }
         $statement = $this->_dbHandle->prepare($query);
         $statement->bindParam(1, $searchTerm);
         $statement->bindParam(2, $searchTerm);
         $statement->bindParam(3, $searchTerm);
+        if ($limitInt != 0) {
+            $statement->bindValue(4, $limitInt, PDO::PARAM_INT);
+        }
+
         $statement->execute();
         $dataset = [];
         while ($row = $statement->fetch()) {

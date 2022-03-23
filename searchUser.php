@@ -9,7 +9,12 @@ session_start();
 $term = $_REQUEST['term'];
 $requestToken = $_REQUEST['ajaxToken'];
 $sessionToken = $_SESSION['ajaxToken'];
+$limit = $_REQUEST['limit'];
 
+if (!is_numeric($limit)) {
+    echo 'false';
+    exit;
+}
 
 if(isset($_SESSION['ajaxToken'])) {
     if ($requestToken !== $sessionToken) {
@@ -23,7 +28,7 @@ if(isset($_SESSION['ajaxToken'])) {
 
 $UserDataSet = new UserDataSet();
 
-$UserArray = $UserDataSet->searchUser($term);
+$UserArray = $UserDataSet->searchUser($term, $limit);
 
 $jsonArray = [];
 for ($i = 0; $i < count($UserArray); $i++) {
