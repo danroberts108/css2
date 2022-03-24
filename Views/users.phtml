@@ -11,7 +11,7 @@
         echo '<div class="container">
         <div class="row">
             <div class="col">
-                <form type="submit" action="" method="POST">
+                <form type="submit" action="" method="POST" autocomplete="off">
                     <div class="input-group mb-3">
                         <input type="text" placeholder="Search..." class="form-control" id="searchbox" name="searchTerm"';
         if (isset($_POST['search'])) { echo 'value=' . $_POST['searchTerm']; }
@@ -89,7 +89,7 @@
 
     </div>
 
-<script type="text/javascript">var token = "<?php echo $_SESSION['ajaxToken'] ?>"</script>
+<script type="text/javascript">let token = "<?php echo $_SESSION['ajaxToken'] ?>"</script>
 <script type="text/javascript" src="ajax/searchUser.js"></script>
 
 <?php require('template/footer.phtml') ?>

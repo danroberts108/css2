@@ -83,7 +83,7 @@ function onUnfocus() {
     if (hint.hasChildNodes()) {
         //setTimeout used to stop the element being removed before the user can click one of the results and go to the user page
         //TODO find better way to handle this
-        setTimeout(() => {hint.firstChild.remove();}, 40);
+        setTimeout(() => {hint.firstChild.remove();}, 500);
     }
 }
 
