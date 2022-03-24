@@ -1,10 +1,15 @@
 let searchbox = document.getElementById('searchbox');
 let hint = document.getElementById('liveSearch');
 let limitbox = document.getElementById('limit');
+let usernameCheck = document.getElementById('usernameCheck').checked;
+let fnameCheck = document.getElementById('fnameCheck').checked;
+let lnameCheck = document.getElementById('lnameCheck').checked;
 
 function search() {
     let term = searchbox.value;
     let limit = limitbox.value;
+    let typeString = "";
+    let needComma = false;
 
     //Checks if a search term has been entered
     if (term === "" || term == null) {
@@ -27,10 +32,28 @@ function search() {
             limit = 5;
         }
     }
+    console.log(usernameCheck + fnameCheck + lnameCheck);
+    if (usernameCheck === true) {
+        typeString += 'username';
+        needComma = true;
+    }
+    if (fnameCheck === true) {
+        if (needComma) {
+            typeString+= ',';
+        }
+        typeString += 'fname';
+        needComma = true;
+    }
+    if (lnameCheck === true) {
+        if (needComma) {
+            typeString += ',';
+        }
+        typeString += 'lname';
+    }
 
     //Opens the ajax connection
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'searchUser.php?term=' + term + '&ajaxToken=' + token + '&limit=' + limit);
+    xhr.open('GET', 'searchUser.php?term=' + term + '&ajaxToken=' + token + '&limit=' + limit + '&searchType=' + typeString);
 
     xhr.onreadystatechange = function () {
         let DONE = 4;

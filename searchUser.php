@@ -10,6 +10,8 @@ $term = $_REQUEST['term'];
 $requestToken = $_REQUEST['ajaxToken'];
 $sessionToken = $_SESSION['ajaxToken'];
 $limit = $_REQUEST['limit'];
+$types = $_REQUEST['searchType'];
+$typeArray = explode(',', $types);
 
 if (!is_numeric($limit)) {
     echo 'false';
@@ -28,7 +30,7 @@ if(isset($_SESSION['ajaxToken'])) {
 
 $UserDataSet = new UserDataSet();
 
-$UserArray = $UserDataSet->searchUser($term, $limit);
+$UserArray = $UserDataSet->searchUser($term, $limit, $typeArray);
 
 $jsonArray = [];
 

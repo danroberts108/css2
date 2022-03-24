@@ -339,21 +339,45 @@ class UserDataSet {
      * @param $limit int The limit of results to be returned
      * @return array
      */
-    public function searchUser($term, $limit) {
+    public function searchUser($term, $limit, array $type) {
         $searchTerm = '%' . $term . '%';
+        $nextOr = false;
         $limitInt = intval(trim($limit));
-        $query = "SELECT * FROM users WHERE (username LIKE ? OR fname LIKE ? OR lname LIKE ?)";
+        $query = "SELECT * FROM users WHERE (";
+        if (count($type) == 0) {
+            return array();
+        }
+        if (in_array('username', $type, false)) {
+            $query .= 'username LIKE ?';
+            $nextOr = true;
+        }
+        if (in_array('fname', $type, false)) {
+            if ($nextOr) {
+                $query .= ' OR ';
+            }
+            $query .= 'fname LIKE ?';
+            $nextOr = true;
+        }
+        if (in_array('lname', $type, false)) {
+            if ($nextOr) {
+                $query .= ' OR ';
+            }
+            $query .= 'lname LIKE ?';
+            $nextOr = true;
+        }
+        $query .= ')';
         //Adds the limit part of the statement if one has been selected
         if ($limitInt != 0) {
-            $query = $query . " LIMIT ?";
+            $query .= " LIMIT ?";
         }
         $statement = $this->_dbHandle->prepare($query);
-        $statement->bindParam(1, $searchTerm);
-        $statement->bindParam(2, $searchTerm);
-        $statement->bindParam(3, $searchTerm);
+        for ($i = 0; $i < count($type); $i++) {
+            $param = $i + 1;
+            $statement->bindValue($param, $searchTerm, PDO::PARAM_STR);
+        }
         //Binds the limit argument if one has been selected
         if ($limitInt != 0) {
-            $statement->bindValue(4, $limitInt, PDO::PARAM_INT);
+            $statement->bindValue(count($type) + 1, $limitInt, PDO::PARAM_INT);
         }
 
         $statement->execute();
