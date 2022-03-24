@@ -14,8 +14,19 @@ function search() {
         return;
     }
 
-    /*let viewHeight = document.getElementById('page').clientHeight;
-    let viewHeightRem = viewHeight / 16;*/
+    let viewHeight = document.getElementById('page').clientHeight;
+    let viewHeightRem = viewHeight / 16;
+
+    if (limit == null || limit === '') {
+        if (viewHeight < 750) {
+            viewHeight -= 264;
+            let screenLimit = viewHeight / 100;
+            screenLimit = Math.floor(screenLimit);
+            limit = screenLimit;
+        } else {
+            limit = 5;
+        }
+    }
 
     //Opens the ajax connection
     let xhr = new XMLHttpRequest();

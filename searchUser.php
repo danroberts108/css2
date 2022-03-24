@@ -31,16 +31,6 @@ $UserDataSet = new UserDataSet();
 $UserArray = $UserDataSet->searchUser($term, $limit);
 
 $jsonArray = [];
-/*for ($i = 0; $i < count($UserArray); $i++) {
-    $item = (object) [
-        'userid' => $UserArray[$i]->getUserId(),
-        'username' => $UserArray[$i]->getUsername(),
-        'fname' => $UserArray[$i]->getFname(),
-        'lname' => $UserArray[$i]->getLname(),
-        'photo' => $UserArray[$i]->getPhoto()
-    ];
-    $jsonArray[] = json_encode($item);
-}*/
 
 for ($i = 0; $i < count($UserArray); $i++) {
     $jsonArray[] = (object) $UserArray[$i]->jsonSerialize();
