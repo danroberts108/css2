@@ -1,9 +1,13 @@
 let searchbox = document.getElementById('searchbox');
 let hint = document.getElementById('liveSearch');
 let limitbox = document.getElementById('limit');
-let usernameCheck = document.getElementById('usernameCheck').checked;
-let fnameCheck = document.getElementById('fnameCheck').checked;
-let lnameCheck = document.getElementById('lnameCheck').checked;
+let usernameCheck = document.getElementById('usernameCheck');
+let fnameCheck = document.getElementById('fnameCheck');
+let lnameCheck = document.getElementById('lnameCheck');
+
+let usernameChecked = usernameCheck.checked;
+let fnameChecked = fnameCheck.checked;
+let lnameChecked = lnameCheck.checked;
 
 function search() {
     let term = searchbox.value;
@@ -32,19 +36,18 @@ function search() {
             limit = 5;
         }
     }
-    console.log(usernameCheck + fnameCheck + lnameCheck);
-    if (usernameCheck === true) {
+    if (usernameChecked === true) {
         typeString += 'username';
         needComma = true;
     }
-    if (fnameCheck === true) {
+    if (fnameChecked === true) {
         if (needComma) {
             typeString+= ',';
         }
         typeString += 'fname';
         needComma = true;
     }
-    if (lnameCheck === true) {
+    if (lnameChecked === true) {
         if (needComma) {
             typeString += ',';
         }
@@ -122,7 +125,23 @@ function onUnfocus() {
     }
 }
 
+function usernameCheckChange() {
+    usernameChecked = !usernameChecked;
+}
+
+function fnameCheckChange() {
+    fnameChecked = !fnameChecked;
+}
+
+function lnameCheckChange() {
+    lnameChecked = !lnameChecked;
+}
+
 //Adds the event listeners to the search box element
 searchbox.addEventListener('keyup', search, false);
 searchbox.addEventListener('focusin', search, false);
 searchbox.addEventListener('focusout', onUnfocus, false);
+
+usernameCheck.addEventListener('change', usernameCheckChange, false);
+fnameCheck.addEventListener('change', fnameCheckChange, false);
+lnameCheck.addEventListener('change', lnameCheckChange, false);
