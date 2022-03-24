@@ -388,6 +388,15 @@ class UserDataSet {
         return $dataset;
     }
 
+    public function updateUserLocation($userid, $lat, $lon) {
+        $query = "UPDATE users SET lat=?, lon=? WHERE userid = ?";
+        $statement = $this->_dbHandle->prepare($query);
+        $statement->bindParam(1, $lat);
+        $statement->bindParam(2, $lon);
+        $statement->bindParam(3, $userid);
+        $statement->execute();
+    }
+
 }
 
 
