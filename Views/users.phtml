@@ -16,6 +16,13 @@
                         <input type="text" placeholder="Search..." class="form-control" id="searchbox" name="searchTerm"';
         if (isset($_POST['search'])) { echo 'value=' . $_POST['searchTerm']; }
         echo '>
+                        <input type="number" placeholder="#" class="form-control" id="limit" name="limit" style="max-width: 4rem;" value="';
+        if (isset($_POST['search'])) {
+            echo $_POST['limit'];
+        } else {
+            echo '5';
+        }
+        echo '">
                         <button class="btn btn-outline-secondary" type="submit" id="searchButton" name="search">Search</button>
                     </div>
                 </form>

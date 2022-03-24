@@ -51,9 +51,8 @@ class UserData implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
-        // TODO: Implement jsonSerialize() method.
         return [
             '_userid' => $this->_userid,
             '_username' => $this->_username,

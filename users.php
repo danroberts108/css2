@@ -20,7 +20,7 @@ if (isset($_POST['blockUser'])) {
 }
 //Decides whether to show all users or just non friends depending on if the user is logged in or not
 if (isset($_POST['search'])) {
-    $dataset = $UserDataSet->searchUser($_POST['searchTerm'], 0);
+    $dataset = $UserDataSet->searchUser($_POST['searchTerm'], $_POST['limit']);
 }  elseif (!isset($_SESSION['login'])) {
     $dataset = $UserDataSet->fetchAllUsers();
 } else {
