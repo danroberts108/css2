@@ -24,8 +24,8 @@ if (isset($_POST["registerButton"])) {
 
     //Creates random longitude and latitude for user
     $random = new RandomFloat();
-    $lon = $random->rfloat(-90, 90, 6);
-    $lat = $random->rfloat(-10, 10, 6);
+    $lon = 0;
+    $lat = 0;
 
     //Creates the user using the function in the UserOps class
     $result = $userops->registerUser($_POST["username"], $_POST["email"], "defaultPhoto.png", $_POST["password"], $lat, $lon, $_POST["fname"], $_POST["lname"]);

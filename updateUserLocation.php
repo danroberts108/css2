@@ -15,6 +15,10 @@ if ($sessionToken != $requestToken) {
     exit();
 }
 
+if (!isset($_SESSION['login'])) {
+    exit();
+}
+
 $UserDataSet = new UserDataSet();
 
 $UserDataSet->updateUserLocation($userid, $lat, $lon);

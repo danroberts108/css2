@@ -1,30 +1,11 @@
-var canUpdateLocation = true;
+var userLon, userLat = 0;
 
 function checkGeolocation() {
     return "geolocation" in navigator;
 }
 
-function getUserLocation() {
-    if (checkGeolocation()) {
-        return navigator.geolocation.getCurrentPosition(success, error);
-    } else {
-        canUpdateLocation = false;
-        return false;
-    }
-}
-
-function success() {
-    canUpdateLocation = true;
-}
-
-function error() {
-    canUpdateLocation = false;
-}
-
-function updateUserLocation(position) {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    let userid = document.getElementById('userid').value;
+function updateUserLocation(lon, lat) {
+    let userid = document.getElementById('userid').getAttribute('userid');
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "updateUserLocation.php?lat=" + lat + '&lon=' + lon + '&userid=' + userid + '&ajaxToken=' + token);
@@ -33,14 +14,25 @@ function updateUserLocation(position) {
 
 }
 
+function findLocation(successCallback) {
+    function success(position) {
+        userLon = position.coords.longitude;
+        userLat = position.coords.latitude;
+        successCallback(userLon, userLat);
+    }
+
+    function error() {
+        console.log('Error getting location.');
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error);
+}
+
+
 function runUpdate() {
-    if (canUpdateLocation) {
-        let location = getUserLocation();
-        if (!location) {
-            return;
-        }
-        updateUserLocation(location);
+    if (checkGeolocation()) {
+        findLocation(updateUserLocation);
     }
 }
 
-window.onload = runUpdate();
+document.onload = runUpdate();
