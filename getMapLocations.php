@@ -4,12 +4,19 @@ require_once('Models/UserDataSet.php');
 
 header('Content-Type: text/plain');
 
+session_start();
+
 $UserDataSet = new UserDataSet();
 
 $requestToken = $_REQUEST['ajaxToken'];
 $sessionToken = $_SESSION['ajaxToken'];
 
-$locations = $UserDataSet->getAllLocations();
+if ($requestToken != $sessionToken) {
+    echo 'false';
+    exit();
+}
+
+$locations = $UserDataSet->getFriendsLocations($_SESSION['uid']);
 
 $jsonArray = [];
 

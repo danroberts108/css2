@@ -7,7 +7,7 @@
     </div>
 </div>
 <?php if (isset($_SESSION['login']) && isset($_SESSION['uid'])) { echo '<div id="userid" hidden userid="' . $_SESSION['uid'] . '"></div><script type="text/javascript" src="ajax/getLocation.js"></script>'; } ?>
-<script type="text/javascript">let token = "<?php echo $_SESSION['ajaxToken'] ?>"</script>
+<script type="text/javascript">var token = "<?php echo $_SESSION['ajaxToken'] ?>"</script>
 
 
 <!--Scripts-->

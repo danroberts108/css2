@@ -421,6 +421,26 @@ class UserDataSet {
 
     }
 
+    public function getFriendsLocations($userid) {
+        $friends = $this->fetchFriends($userid);
+        $friendIdArray = [];
+        for ($i = 0; $i < count($friends); $i++) {
+            $friendIdArray[] = $friends[$i]->getUserid();
+        }
+        $queryIds = implode(',', array_fill(0, count($friendIdArray), '?'));
+        $query = "SELECT lon, lat FROM users WHERE userid IN(" . $queryIds . ")";
+
+        $statement = $this->_dbHandle->prepare($query);
+        $statement->execute($friendIdArray);
+
+        $dataset = [];
+        while ($row = $statement->fetch()) {
+            $dataset[] = new Location($row['lon'], $row['lat']);
+        }
+
+        return $dataset;
+    }
+
 }
 
 
