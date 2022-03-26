@@ -3,6 +3,7 @@
 require_once ('Models/Database.php');
 require_once ('Models/UserData.php');
 require_once('Models/UserFriendshipData.php');
+require_once('Models/Location.php');
 
 /**
  *
@@ -395,6 +396,29 @@ class UserDataSet {
         $statement->bindParam(2, $lon);
         $statement->bindParam(3, $userid);
         $statement->execute();
+    }
+
+    public function getUserLocation($userid) {
+        $query = "SELECT lon, lat FROM users WHERE userid = ?";
+        $statement = $this->_dbHandle->prepare($query);
+        $statement->bindParam(1, $userid);
+        $statement->execute();
+
+        $result = $statement->fetch();
+        return array($result['lon'], $result['lat']);
+    }
+
+    public function getAllLocations() {
+        $statement = $this->_dbHandle->prepare("SELECT lon, lat FROM users");
+        $statement->execute();
+
+        $dataset = [];
+        while ($row = $statement->fetch()) {
+            $dataset[] = new Location($row['lon'], $row['lat']);
+        }
+
+        return $dataset;
+
     }
 
 }
