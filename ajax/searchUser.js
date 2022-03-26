@@ -72,18 +72,22 @@ function search() {
             let resultArray = JSON.parse(response);
             //Removes previous search results from the popup search window
             if (hint.hasChildNodes()) {
-                hint.firstChild.remove();
+                //hint.firstChild.remove();
+                document.getElementById('searchDiv').remove();
             }
             //Checks if the search returned no results
             if (resultArray != null) {
                 //Creates the list div in the document
                 let list = document.createElement("div");
+                //Sets the div ID
+                list.id = 'searchDiv';
                 //Adds the class 'list-group' for css formatting
                 list.classList.add('list-group');
                 //Creates a result item for each returned result and then appends it inside the list div
                 for (let i = 0; i < resultArray.length; i++) {
                     let result = document.createElement('a');
                     let item = resultArray[i];
+                    item.id = 'result' + i;
                     result.classList.add('list-group-item', 'list-group-item-action', 'search-infront');
                     result.setAttribute('href', 'user.php?userid=' + item._userid);
                     result.innerHTML = '<div class="container">' +
