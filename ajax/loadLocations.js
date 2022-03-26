@@ -1,5 +1,4 @@
-var map = document.getElementById('map');
-var locations = [];
+var locations;
 
 function getLocations() {
     let xhr = new XMLHttpRequest();
@@ -11,6 +10,10 @@ function getLocations() {
         if (xhr.readyState === DONE && xhr.status === OK) {
             let response = xhr.responseText;
             let locationArray = JSON.parse(response);
+            console.log(locationArray);
+            for (i = 0; i < locationArray.length; i++) {
+                locations = locationArray;
+            }
         }
     };
 

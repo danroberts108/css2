@@ -3,13 +3,13 @@ const getRandomNumber = function (min, ref) {
     return Math.random() * ref + min;
 }
 const features = [];
-for (i = 0; i < 300; i++) {
+
+for (i = 0; i < Object.keys(locations).length; i++) {
     features.push(new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([
-            -getRandomNumber(50, 50), getRandomNumber(10, 50)
-        ]))
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([locations[i]._lon, locations[i]._lat]))
     }));
 }
+
 // create the source and layer for random features
 const vectorSource = new ol.source.Vector({
     features
