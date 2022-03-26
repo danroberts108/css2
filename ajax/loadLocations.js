@@ -10,9 +10,7 @@ function getLocations() {
         let OK = 200;
         if (xhr.readyState === DONE && xhr.status === OK) {
             let response = xhr.responseText;
-            console.log(response);
             let locationArray = JSON.parse(response);
-            console.log(locationArray);
         }
     };
 
