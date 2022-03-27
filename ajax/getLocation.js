@@ -1,4 +1,4 @@
-var userLon, userLat = 0;
+let userLon, userLat = 0;
 
 function checkGeolocation() {
     return "geolocation" in navigator;
@@ -16,8 +16,8 @@ function updateUserLocation(lon, lat) {
 
 function findLocation(successCallback) {
     function success(position) {
-        userLon = position.coords.longitude;
-        userLat = position.coords.latitude;
+        userLon = position.coords?.longitude;
+        userLat = position.coords?.latitude;
         successCallback(userLon, userLat);
     }
 

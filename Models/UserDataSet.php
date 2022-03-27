@@ -409,12 +409,12 @@ class UserDataSet {
     }
 
     public function getAllLocations() {
-        $statement = $this->_dbHandle->prepare("SELECT lon, lat FROM users");
+        $statement = $this->_dbHandle->prepare("SELECT userid, username,lon, lat FROM users");
         $statement->execute();
 
         $dataset = [];
         while ($row = $statement->fetch()) {
-            $dataset[] = new Location($row['lon'], $row['lat']);
+            $dataset[] = new Location($row['userid'], $row['username'], $row['lon'], $row['lat']);
         }
 
         return $dataset;
@@ -428,14 +428,14 @@ class UserDataSet {
             $friendIdArray[] = $friends[$i]->getUserid();
         }
         $queryIds = implode(',', array_fill(0, count($friendIdArray), '?'));
-        $query = "SELECT lon, lat FROM users WHERE userid IN(" . $queryIds . ")";
+        $query = "SELECT userid, username, lon, lat FROM users WHERE userid IN(" . $queryIds . ")";
 
         $statement = $this->_dbHandle->prepare($query);
         $statement->execute($friendIdArray);
 
         $dataset = [];
         while ($row = $statement->fetch()) {
-            $dataset[] = new Location($row['lon'], $row['lat']);
+            $dataset[] = new Location($row['userid'], $row['username'], $row['lon'], $row['lat']);
         }
 
         return $dataset;

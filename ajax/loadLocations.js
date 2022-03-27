@@ -1,6 +1,6 @@
 var locations;
 
-function getLocations() {
+function getLocations(callback) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'getMapLocations.php?ajaxToken=' + token);
 
@@ -18,6 +18,8 @@ function getLocations() {
     };
 
     xhr.send(null);
+
+    callback();
 }
 
-document.onload = getLocations();
+document.onload = getLocations(genMap);

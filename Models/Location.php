@@ -2,9 +2,11 @@
 
 class Location implements JsonSerializable
 {
-    protected $_lon, $_lat;
+    protected $_userid, $_username, $_lon, $_lat;
 
-    public function __construct($lon, $lat) {
+    public function __construct($userid, $username, $lon, $lat) {
+        $this->_userid = $userid;
+        $this->_username = $username;
         $this->_lon = $lon;
         $this->_lat = $lat;
     }
@@ -12,6 +14,8 @@ class Location implements JsonSerializable
     public function jsonSerialize() : array
     {
         return [
+            '_userid' => $this->_userid,
+            '_username' => $this->_username,
             '_lon' => $this->_lon,
             '_lat' => $this->_lat
         ];

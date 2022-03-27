@@ -1,0 +1,14 @@
+div.popover {
+    border-style: solid;
+    border-color: black;
+    padding: 0.5rem;
+    min-width: 8rem;
+}
+
+a.popover-link {
+
+}
+
+h5.popover-title {
+
+}

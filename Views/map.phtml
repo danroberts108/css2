@@ -1,5 +1,7 @@
 <?php require_once('template/header.phtml') ?>
 
+
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -8,7 +10,10 @@
     </div>
     <div class="row">
         <div class="col">
-            <div id="map" class="map">
+            <div id="map" class="map"></div>
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
             </div>
         </div>
     </div>
@@ -16,7 +21,7 @@
 
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/build/ol.js"></script>
 <script type="text/javascript">var token = "<?php echo $_SESSION['ajaxToken'] ?>"</script>
-<script type="text/javascript" src="ajax/loadLocations.js"></script>
-<script src="js/map.js"></script>
+<!--<script type="text/javascript" src="ajax/loadLocations.js"></script>-->
+<script type="text/javascript" src="js/map.js" defer></script>
 
 <?php require_once('template/footer.phtml') ?>
