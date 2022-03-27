@@ -133,9 +133,7 @@ body {
 }
 
 .container-border {
-    outline: lightgrey;
-    outline-style: solid;
-    outline-width: thin;
+    outline: lightgrey solid thin;
     border-radius: 10px;
 }
 
