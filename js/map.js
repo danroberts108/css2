@@ -1,8 +1,27 @@
 let locations = [];
 let features = [];
 let locationObjectArray = [];
+let map;
 
 function genMap() {
+
+    map = new ol.Map({
+        target: 'map',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([37.41, 8.82]),
+            zoom: 0
+        })
+    });
+
+    addMarkerLayer();
+}
+
+function addMarkerLayer() {
 
     for (let i = 0; i < Object.keys(locations).length; i++) {
         let point = new ol.geom.Point(ol.proj.fromLonLat(locations[i]));
@@ -13,7 +32,6 @@ function genMap() {
         features.push(feature);
     }
 
-// create the source and layer for random features
     const vectorSource = new ol.source.Vector({
         features
     });
@@ -22,20 +40,7 @@ function genMap() {
         source: vectorSource
     });
 
-
-    const map = new ol.Map({
-        target: 'map',
-        layers: [
-            new ol.layer.Tile({
-                source: new ol.source.OSM()
-            }),
-            markerLayer
-        ],
-        view: new ol.View({
-            center: ol.proj.fromLonLat([37.41, 8.82]),
-            zoom: 0
-        })
-    });
+    map.addLayer(markerLayer);
 
     let container = document.getElementById('popup');
     let content = document.getElementById('popup-content');
@@ -62,13 +67,8 @@ function genMap() {
     function openPopup(event) {
         if (map.hasFeatureAtPixel(event.pixel) === true) {
             let featureArray = map.getFeaturesAtPixel(event.pixel);
-            console.log(featureArray);
-
-            let featureLonLat = ol.proj.transform(featureArray[0].getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
-            console.log(featureLonLat);
 
             let user = locationObjectArray.filter(item => item._userid === featureArray[0].get('userid'));
-            console.log(user[0]);
 
             let coordinate = event.coordinate;
             let infoTitle = document.createElement('h5');
@@ -83,14 +83,10 @@ function genMap() {
             let infoDiv = document.createElement('div');
             infoDiv.classList.add('popover');
 
-            let containerDiv = document.createElement('div');
-            containerDiv.classList.add('container');
-
             infoDiv.appendChild(infoTitle);
             infoDiv.appendChild(infoLink);
-            containerDiv.appendChild(infoDiv);
 
-            content.appendChild(containerDiv);
+            content.appendChild(infoDiv);
             overlay.setPosition(coordinate);
         } else {
             overlay.setPosition(undefined);
@@ -99,7 +95,6 @@ function genMap() {
     }
 
     map.addEventListener('click', openPopup, false);
-
 }
 
 function getLocations(callback) {
@@ -117,7 +112,6 @@ function getLocations(callback) {
             for (i = 0; i < locationObjectArray.length; i++) {
                 locations.push([locationObjectArray[i]._lon, locationObjectArray[i]._lat]);
             }
-            console.log(locations);
             callback();
         }
     }
