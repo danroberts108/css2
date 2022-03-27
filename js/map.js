@@ -5,9 +5,12 @@ let locationObjectArray = [];
 function genMap() {
 
     for (let i = 0; i < Object.keys(locations).length; i++) {
-        features.push(new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat(locations[i]))
-        }));
+        let point = new ol.geom.Point(ol.proj.fromLonLat(locations[i]));
+        let feature = new ol.Feature({
+            geometry: point
+        })
+        feature.set('userid', locationObjectArray[i]._userid);
+        features.push(feature);
     }
 
 // create the source and layer for random features
@@ -58,13 +61,23 @@ function genMap() {
 
     function openPopup(event) {
         if (map.hasFeatureAtPixel(event.pixel) === true) {
+            let featureArray = map.getFeaturesAtPixel(event.pixel);
+            console.log(featureArray);
+
+            let featureLonLat = ol.proj.transform(featureArray[0].getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
+            console.log(featureLonLat);
+
+            let user = locationObjectArray.filter(item => item._userid === featureArray[0].get('userid'));
+            console.log(user[0]);
+
             let coordinate = event.coordinate;
             let infoTitle = document.createElement('h5');
             infoTitle.classList.add('popover-title');
-            infoTitle.innerText = 'Username';
+            infoTitle.innerText = user[0]._username;
 
             let infoLink = document.createElement('a');
             infoLink.classList.add('popover-link', 'btn', 'btn-primary');
+            infoLink.setAttribute('href', 'user.php?userid=' + user[0]._userid);
             infoLink.innerText = 'View Profile'
 
             let infoDiv = document.createElement('div');
@@ -110,6 +123,10 @@ function getLocations(callback) {
     }
 
     xhr.send(null);
+}
+
+function getUserFromLonLat(lon, lat) {
+    return locationObjectArray.filter(obj => (obj.lon === lon && obj.lat === lat));
 }
 
 document.onload = getLocations(genMap);
