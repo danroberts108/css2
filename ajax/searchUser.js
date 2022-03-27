@@ -5,9 +5,9 @@ let usernameCheck = document.getElementById('usernameCheck');
 let fnameCheck = document.getElementById('fnameCheck');
 let lnameCheck = document.getElementById('lnameCheck');
 
-let usernameChecked = usernameCheck.checked;
-let fnameChecked = fnameCheck.checked;
-let lnameChecked = lnameCheck.checked;
+let usernameChecked = usernameCheck?.checked;
+let fnameChecked = fnameCheck?.checked;
+let lnameChecked = lnameCheck?.checked;
 
 function search() {
     let term = searchbox.value;
@@ -23,9 +23,7 @@ function search() {
         return;
     }
 
-    let viewHeight = document.getElementById('page').clientHeight;
-    let viewHeightRem = viewHeight / 16;
-
+    //Logic to limit results to screen height for viewability
     if (limit == null || limit === '') {
         if (viewHeight < 750) {
             viewHeight -= 264;
@@ -36,10 +34,14 @@ function search() {
             limit = 5;
         }
     }
+
+    //Checks if the username box is checked and adds it to the query
     if (usernameChecked === true) {
         typeString += 'username';
         needComma = true;
     }
+
+    //Checks if the fname box is checked and adds it to the query
     if (fnameChecked === true) {
         if (needComma) {
             typeString+= ',';
@@ -47,6 +49,8 @@ function search() {
         typeString += 'fname';
         needComma = true;
     }
+
+    //Checks if the lname box is checked and adds it to the query
     if (lnameChecked === true) {
         if (needComma) {
             typeString += ',';
@@ -129,23 +133,27 @@ function onUnfocus() {
     }
 }
 
+//Function to keep track of username checkbox
 function usernameCheckChange() {
     usernameChecked = !usernameChecked;
 }
 
+//Function to keep track of fname checkbox
 function fnameCheckChange() {
     fnameChecked = !fnameChecked;
 }
 
+//Function to keep track of lname checkbox
 function lnameCheckChange() {
     lnameChecked = !lnameChecked;
 }
 
-//Adds the event listeners to the search box element
-searchbox.addEventListener('keyup', search, false);
-searchbox.addEventListener('focusin', search, false);
-searchbox.addEventListener('focusout', onUnfocus, false);
+//Adds the event listeners to the search box element only if they exist on the page with the ?. function
+searchbox?.addEventListener('keyup', search, false);
+searchbox?.addEventListener('focusin', search, false);
+searchbox?.addEventListener('focusout', onUnfocus, false);
 
-usernameCheck.addEventListener('change', usernameCheckChange, false);
-fnameCheck.addEventListener('change', fnameCheckChange, false);
-lnameCheck.addEventListener('change', lnameCheckChange, false);
+//Adds the event listeners to the search param checkboxes only if they exist on the page with the ?. function
+usernameCheck?.addEventListener('change', usernameCheckChange, false);
+fnameCheck?.addEventListener('change', fnameCheckChange, false);
+lnameCheck?.addEventListener('change', lnameCheckChange, false);
