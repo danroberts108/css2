@@ -280,7 +280,11 @@ class UserDataSet {
         return $result['status'];
     }
 
-    //Deletes a freindship from the given friendship id
+    public function getFriendship($friendid): ?int {
+        return 2;
+    }
+
+    //Deletes a friendship from the given friendship id
 
     /**
      * @param $friendshipid
