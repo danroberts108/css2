@@ -29,7 +29,7 @@
                                 <label for="userid"><b>User ID</b></label>
                             </div>
                             <div class="col">
-                                <input type="text" name="userid"
+                                <input id="thisuserid" type="text" name="userid"
                                        value="<?php echo $view->user->getUserid() ?>" class="registerinput"
                                        disabled>
                             </div>
@@ -63,6 +63,21 @@
                             </div>
                         </div>
                     </form>
+                    <br>
+                    <div class="container">
+                        <div class="col btn-pad">
+                            <div class="row">
+                                <button class="btn btn-primary btn-block" href="#" id="requestBtn">Request Friend</button>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-danger btn-block" href="#" id="removeBtn">Remove Friend</button>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-secondary btn-block" href="#" id="blockBtn">Block User</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

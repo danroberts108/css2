@@ -16,7 +16,8 @@ function genMap() {
         ],
         view: new ol.View({
             center: ol.proj.fromLonLat([37.41, 8.82]),
-            zoom: 0
+            zoom: 0,
+            maxZoom: 5
         })
     });
 
@@ -24,18 +25,23 @@ function genMap() {
     addMarkerLayer();
 }
 
+//Returns a new marker point
+function newMarker(lonLatArray) {
+    return new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat(lonLatArray))
+    });
+}
+
+
 //Function to add the marker layer
 function addMarkerLayer() {
-
-    //Creates all of the markers on the layer with the lon & lat from each of the locations provided
+    //Creates all the markers on the layer with the lon & lat from each of the locations provided
     for (let i = 0; i < Object.keys(locations).length; i++) {
-        let point = new ol.geom.Point(ol.proj.fromLonLat(locations[i]));
-        let feature = new ol.Feature({
-            geometry: point
-        })
+        //Creates the new point
+        let feature = newMarker(locations[i]);
         //Sets the userid attribute on each of the features to identify it
         feature.set('userid', locationObjectArray[i]._userid);
-        //Adds the feeature to the feature array
+        //Adds the feature to the feature array
         features.push(feature);
     }
 

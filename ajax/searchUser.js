@@ -23,6 +23,8 @@ function search() {
         return;
     }
 
+    let viewHeight = window.innerHeight;
+
     //Logic to limit results to screen height for viewability
     if (limit == null || limit === '') {
         if (viewHeight < 750) {
