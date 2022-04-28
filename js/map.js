@@ -86,6 +86,8 @@ function addMarkerLayer() {
 
     //Function to create and display the popover for each point
     function openPopup(event) {
+        overlay.setPosition(undefined);
+        closer.blur();
         if (map.hasFeatureAtPixel(event.pixel) === true) {
             //Creates the array of features from where the user has clicked
             let featureArray = map.getFeaturesAtPixel(event.pixel);
